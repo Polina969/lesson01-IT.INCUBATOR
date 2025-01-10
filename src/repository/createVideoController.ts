@@ -1,7 +1,11 @@
 import express, { Response, Request } from "express";
 import { Resolutions } from "../models/video-db-type";
-import { db, createdAt, publicationDate } from "../db/db";
+import { db } from "../db/db";
 import { VideoDBType } from "../models/video-db-type";
+
+export const createdAt = new Date();
+export const publicationDate = new Date();
+publicationDate.setDate(createdAt.getDate() + 1);
 
 export type VideoViewModel = {
   id: number | string;

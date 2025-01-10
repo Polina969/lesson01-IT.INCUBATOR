@@ -2,8 +2,8 @@ import { VideoDBType, Resolutions } from "../models/video-db-type";
 
 export type DBType = { videos: VideoDBType[] };
 
-export const createdAt = new Date();
-export const publicationDate = new Date();
+// export const createdAt = new Date();
+// export const publicationDate = new Date();
 // publicationDate.setDate(createdAt.getDate() + 1);
 
 export const db: DBType = {

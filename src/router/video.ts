@@ -4,7 +4,7 @@ import { DBType } from "../db/db";
 import { validateVideoData } from "../repository/createVideoController";
 import { VideoViewModel } from "../repository/createVideoController";
 import { createVideoController } from "../repository/createVideoController";
-import { createdAt } from "../db/db";
+import { createdAt } from "../repository/createVideoController";
 import { deleteVideoController } from "../repository/deleteVideoController";
 
 export const getVideoRouter = (db: DBType) => {
