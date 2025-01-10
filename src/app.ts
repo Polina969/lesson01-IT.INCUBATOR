@@ -7,4 +7,4 @@ export const PORT = process.env.PORT || 4010;
 const jsonBodyMiddleware = express.json();
 app.use(jsonBodyMiddleware);
 
-app.use("/hometask_01/api", getVideoRouter(db));
+app.use(getVideoRouter(db));
