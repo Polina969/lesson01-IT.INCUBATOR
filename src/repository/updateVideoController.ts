@@ -69,13 +69,25 @@ export function validateUpdateVideoData(data: any): ValidationResult {
       });
     }
   }
-  //   } else if (data.canBeDownloaded.trim() === "") {
-  //     errors.push({
-  //       message: "Поле 'canBeDownloaded' не может быть пустой строкой.",
-  //       field: "canBeDownloaded",
-  //     });
+  // валидация minAgeRestriction
+  if (!data || !data.minAgeRestriction) {
+    errors.push({
+      message: "<Поле 'minAgeRestriction' обязательно для заполнения.>",
+      field: "minAgeRestriction",
+    });
+  } else if (typeof data.minAgeRestriction !== "number") {
+    errors.push({
+      message: "Поле 'minAgeRestriction' должно быть числом.",
+      field: "minAgeRestriction",
+    });
+  } else if (data.minAgeRestriction < 1 || data.minAgeRestriction > 18) {
+    errors.push({
+      message:
+        "<Длина поля 'minAgeRestriction' должна быть от 1 до 18 символов.>",
+      field: "minAgeRestriction",
+    });
+  }
 
-  //   }
   // 4. Валидация availableResolutions
   if (
     data.availableResolutions !== null &&

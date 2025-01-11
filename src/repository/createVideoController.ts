@@ -134,7 +134,7 @@ export function validateVideoData(data: any): ValidationResult {
     });
   }
 
-  // 3. Валидация availableResolutions
+  // последняя. Валидация availableResolutions
   if (
     data.availableResolutions !== null &&
     data.availableResolutions !== undefined
