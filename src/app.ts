@@ -3,7 +3,7 @@ import { db } from "./db/db";
 import { getVideoRouter } from "./router/video";
 
 export const app = express();
-export const PORT = process.env.PORT || 4011;
+export const PORT = process.env.PORT || 4014;
 const jsonBodyMiddleware = express.json();
 app.use(jsonBodyMiddleware);
 

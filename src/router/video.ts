@@ -69,29 +69,21 @@ export const getVideoRouter = (db: DBType) => {
     const videosID = foundIDCourse; // получаем видео из бд
     res.status(200).json(videosID);
   });
-  videoRouter.delete("/videos/:id", (req: Request, res: Response) => {
-    if (isNaN(+req.params.id)) {
-      res.sendStatus(404); // 404, если id не число
-    }
+  videoRouter.delete("/videos/:id", (req: Request, res: Response): void => {
+    const status = deleteVideoController.deleteIDVideo(+req.params.id);
 
-    const videoIndex = db.videos.findIndex((v) => v.id === +req.params.id);
-
-    if (videoIndex === -1) {
-      res.sendStatus(404); // 404, если видео с таким id не найдено
-    }
-
-    db.videos.splice(videoIndex, 1); // Удаляем видео из массива
-    res.sendStatus(204); // 204, если видео успешно удалено
-    // if (!+req.params.id) {
-    //   res.sendStatus(404);
-    // }
-    // let deleteVideo = db.videos.filter((c) => c.id !== +req.params.id);
-    // if (!deleteVideo) {
-    //   res.sendStatus(404);
-    // } else {
-    //   deleteVideo = db.videos;
-    //   res.sendStatus(204);
-    // }
+    res.sendStatus(status);
   });
   return videoRouter;
 };
+
+// if (!+req.params.id) {
+//   res.sendStatus(404);
+// }
+// let deleteVideo = db.videos.filter((c) => c.id !== +req.params.id);
+// if (!deleteVideo) {
+//   res.sendStatus(404);
+// } else {
+//   deleteVideo = db.videos;
+//   res.sendStatus(204);
+// }
