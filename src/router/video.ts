@@ -10,6 +10,7 @@ import { createVideoController } from "../repository/createVideoController";
 import { createdAt } from "../repository/createVideoController";
 import { deleteVideoController } from "../repository/deleteVideoController";
 import { getVideosController } from "../repository/getVideosController";
+import { validateUpdateVideoData } from "../repository/updateVideoController";
 
 export const getVideoRouter = (db: DBType) => {
   const videoRouter = express.Router();
@@ -37,16 +38,16 @@ export const getVideoRouter = (db: DBType) => {
     }
   });
   videoRouter.put("/videos/:id", (req: Request, res: Response) => {
-    const validationResult = validateVideoData(req.body);
-    // if (!validationResult.isValid) {
-    //   res.status(400).json({ errorsMessages: validationResult.errors });
-    //   return;
-    // }
-
-    if (!req.body.title) {
+    const validationResult = validateUpdateVideoData(req.body);
+    if (!validationResult.isValid) {
       res.status(400).json({ errorsMessages: validationResult.errors });
       return;
     }
+
+    // if (!req.body.title) {
+    //   res.status(400).json({ errorsMessages: validationResult.errors });
+    //   return;
+    // }
 
     const foundVideo = db.videos.find((c) => c.id === +req.params.id);
     if (!foundVideo) {
