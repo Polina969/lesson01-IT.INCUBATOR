@@ -87,6 +87,24 @@ export function validateUpdateVideoData(data: any): ValidationResult {
       field: "minAgeRestriction",
     });
   }
+  //валидация publicationDate
+  if (!data || !data.publicationDate) {
+    errors.push({
+      message: "<Поле 'publicationDate' обязательно для заполнения.>",
+      field: "publicationDate",
+    });
+  } else if (typeof data.publicationDate !== "string") {
+    errors.push({
+      message: "Поле 'publicationDate' должно быть строкой.",
+      field: "publicationDate",
+    });
+  } else if (data.publicationDate < 6 || data.publicationDate > 30) {
+    errors.push({
+      message:
+        "<Длина поля 'publicationDate' должна быть от 1 до 18 символов.>",
+      field: "publicationDate",
+    });
+  }
 
   // 4. Валидация availableResolutions
   if (
