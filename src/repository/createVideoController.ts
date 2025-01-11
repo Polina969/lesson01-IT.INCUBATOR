@@ -91,7 +91,7 @@ export function validateVideoData(data: any): ValidationResult {
   // 1. Валидация title
   if (!data || !data.title) {
     errors.push({
-      message: "Поле 'title' обязательно для заполнения.",
+      message: "<Поле 'title' обязательно для заполнения.>",
       field: "title",
     });
   } else if (typeof data.title !== "string") {
@@ -106,7 +106,7 @@ export function validateVideoData(data: any): ValidationResult {
     });
   } else if (data.title.length < 3 || data.title.length > 40) {
     errors.push({
-      message: "Длина поля 'title' должна быть от 3 до 40 символов.",
+      message: "<Длина поля 'title' должна быть от 3 до 40 символов.>",
       field: "title",
     });
   }

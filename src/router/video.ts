@@ -17,7 +17,7 @@ export const getVideoRouter = (db: DBType) => {
     const validationResult = validateVideoData(req.body);
 
     if (!validationResult.isValid) {
-      res.status(400).json({ errors: validationResult.errors });
+      res.status(400).json({ errorsMessages: validationResult.errors });
       return;
     }
 
@@ -37,6 +37,12 @@ export const getVideoRouter = (db: DBType) => {
     }
   });
   videoRouter.put("/videos/:id", (req: Request, res: Response) => {
+    const validationResult = validateVideoData(req.body);
+
+    if (!validationResult.isValid) {
+      res.status(400).json({ errorsMessages: validationResult.errors });
+      return;
+    }
     if (!req.body.title) {
       res.sendStatus(400);
       return;
