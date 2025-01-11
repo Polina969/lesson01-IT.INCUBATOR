@@ -70,8 +70,13 @@ export const getVideoRouter = (db: DBType) => {
     res.status(200).json(videosID);
   });
   videoRouter.delete("/videos/:id", (req, res) => {
-    db.videos = db.videos.filter((c) => c.id !== +req.params.id);
-    res.sendStatus(204);
+    let deleteVideo = db.videos.filter((c) => c.id !== +req.params.id);
+    if (!deleteVideo) {
+      res.sendStatus(404);
+    } else {
+      deleteVideo = db.videos;
+      res.sendStatus(204);
+    }
   });
   return videoRouter;
 };
