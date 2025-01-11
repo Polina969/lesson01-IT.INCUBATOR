@@ -1,4 +1,8 @@
 import { VideoDBType, Resolutions } from "../models/video-db-type";
+import {
+  publicationDate,
+  createdAt,
+} from "../repository/createVideoController";
 
 export type DBType = { videos: VideoDBType[] };
 
@@ -14,8 +18,9 @@ export const db: DBType = {
       author: "CotoMama",
       canBeDownloaded: false,
       minAgeRestriction: null,
-      createdAt: "2025-01-09T01:32:13.176Z",
-      publicationDate: "2025-01-10T01:32:13.176Z",
+      createdAt: createdAt.toISOString(),
+      //"2025-01-09T01:32:13.176Z",
+      publicationDate: publicationDate.toISOString(), //"2025-01-10T01:32:13.176Z",
       availableResolutions: [Resolutions.P144],
     },
     {
@@ -24,8 +29,8 @@ export const db: DBType = {
       author: "DogoMama",
       canBeDownloaded: false,
       minAgeRestriction: null,
-      createdAt: "2024-01-09T01:32:13.176Z",
-      publicationDate: "2024-01-10T01:32:13.176Z",
+      createdAt: createdAt.toISOString(),
+      publicationDate: publicationDate.toISOString(),
       availableResolutions: [Resolutions.P144],
     },
   ],
