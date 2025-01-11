@@ -1,7 +1,10 @@
 import express from "express";
 import { HTTP_STATUSES } from "../utils";
 import { DBType } from "../db/db";
-import { validateVideoData } from "../repository/createVideoController";
+import {
+  publicationDate,
+  validateVideoData,
+} from "../repository/createVideoController";
 import { VideoViewModel } from "../repository/createVideoController";
 import { createVideoController } from "../repository/createVideoController";
 import { createdAt } from "../repository/createVideoController";
@@ -49,7 +52,7 @@ export const getVideoRouter = (db: DBType) => {
     foundVideo.availableResolutions = req.body.availableResolutions;
     foundVideo.canBeDownloaded = req.body.canBeDownloaded;
     foundVideo.minAgeRestriction = req.body.minAgeRestriction;
-    foundVideo.publicationDate = createdAt.toISOString();
+    foundVideo.publicationDate = publicationDate.toISOString();
 
     res.sendStatus(204);
   });
