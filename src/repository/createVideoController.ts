@@ -7,11 +7,11 @@ export const createdAt = new Date();
 export const publicationDate = new Date();
 publicationDate.setDate(createdAt.getDate() + 1);
 
-// export type VideoViewModel = {
-//   id: number | string;
-//   title: string;
-//   availableResolutions: Resolutions[] | null;
-// };
+export type VideoViewModel = {
+  id: number | string;
+  title: string;
+  availableResolutions: Resolutions[] | null;
+};
 
 // interface ValidationResult {
 //   isValid: boolean;
