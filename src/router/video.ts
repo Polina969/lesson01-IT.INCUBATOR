@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response, Router } from "express";
 import { HTTP_STATUSES } from "../utils";
 import { DBType } from "../db/db";
 import {
@@ -12,7 +12,7 @@ import { deleteVideoController } from "../repository/deleteVideoController";
 
 export const getVideoRouter = (db: DBType) => {
   const videoRouter = express.Router();
-  videoRouter.post("/videos", (req, res) => {
+  videoRouter.post("/videos", (req: Request, res: Response) => {
     const validationResult = validateVideoData(req.body);
 
     if (!validationResult.isValid) {
@@ -35,7 +35,7 @@ export const getVideoRouter = (db: DBType) => {
         .json({ message: "If the inputModel has incorrect values" });
     }
   });
-  videoRouter.put("/videos/:id", (req, res) => {
+  videoRouter.put("/videos/:id", (req: Request, res: Response) => {
     if (!req.body.title) {
       res.sendStatus(400);
       return;
@@ -56,27 +56,42 @@ export const getVideoRouter = (db: DBType) => {
 
     res.sendStatus(204);
   });
-  videoRouter.delete("/testing/all-data", (req, res) => {
+  videoRouter.delete("/testing/all-data", (req: Request, res: Response) => {
     deleteVideoController.deleteFulVideo(db);
     res.sendStatus(HTTP_STATUSES.NO_CONTENT_204);
   });
-  videoRouter.get("/videos", (req, res) => {
+  videoRouter.get("/videos", (req: Request, res: Response) => {
     const videosGET = db.videos; // получаем видео из бд
     res.status(200).json(videosGET);
   });
-  videoRouter.get("/videos/:id", (req, res) => {
+  videoRouter.get("/videos/:id", (req: Request, res: Response) => {
     const foundIDCourse = db.videos.find((p) => p.id === +req.params.id);
     const videosID = foundIDCourse; // получаем видео из бд
     res.status(200).json(videosID);
   });
-  videoRouter.delete("/videos/:id", (req, res) => {
-    let deleteVideo = db.videos.filter((c) => c.id !== +req.params.id);
-    if (!deleteVideo) {
-      res.sendStatus(404);
-    } else {
-      deleteVideo = db.videos;
-      res.sendStatus(204);
+  videoRouter.delete("/videos/:id", (req: Request, res: Response) => {
+    if (isNaN(+req.params.id)) {
+      res.sendStatus(404); // 404, если id не число
     }
+
+    const videoIndex = db.videos.findIndex((v) => v.id === +req.params.id);
+
+    if (videoIndex === -1) {
+      res.sendStatus(404); // 404, если видео с таким id не найдено
+    }
+
+    db.videos.splice(videoIndex, 1); // Удаляем видео из массива
+    res.sendStatus(204); // 204, если видео успешно удалено
+    // if (!+req.params.id) {
+    //   res.sendStatus(404);
+    // }
+    // let deleteVideo = db.videos.filter((c) => c.id !== +req.params.id);
+    // if (!deleteVideo) {
+    //   res.sendStatus(404);
+    // } else {
+    //   deleteVideo = db.videos;
+    //   res.sendStatus(204);
+    // }
   });
   return videoRouter;
 };
