@@ -38,19 +38,19 @@ export const getVideoRouter = (db: DBType) => {
   });
   videoRouter.put("/videos/:id", (req: Request, res: Response) => {
     const validationResult = validateVideoData(req.body);
+    // if (!validationResult.isValid) {
+    //   res.status(400).json({ errorsMessages: validationResult.errors });
+    //   return;
+    // }
 
-    if (!validationResult.isValid) {
-      res.status(400).json({ errorsMessages: validationResult.errors });
-      return;
-    }
     if (!req.body.title) {
-      res.sendStatus(400);
+      res.status(400).json({ errorsMessages: validationResult.errors });
       return;
     }
 
     const foundVideo = db.videos.find((c) => c.id === +req.params.id);
     if (!foundVideo) {
-      res.sendStatus(404);
+      res.sendStatus(404).json({ errorsMessages: validationResult.errors });
       return;
     }
 
