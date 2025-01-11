@@ -53,7 +53,7 @@ export const getVideoRouter = (db: DBType) => {
     foundVideo.availableResolutions = req.body.availableResolutions;
     foundVideo.canBeDownloaded = req.body.canBeDownloaded;
     foundVideo.minAgeRestriction = req.body.minAgeRestriction;
-    foundVideo.publicationDate = publicationDate.toISOString();
+    foundVideo.publicationDate = req.body.publicationDate; // publicationDate.toISOString();
 
     res.sendStatus(204);
   });
